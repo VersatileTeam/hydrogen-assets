@@ -310,7 +310,7 @@ end
 local uiSettings = {
 	key = "",
 	editorInit = "print(\"Hydrogen-Android >>>\");",
-	searchAPI = "ScriptBlox",
+	searchAPI = "RScripts",
 	language = "English"
 };
 
