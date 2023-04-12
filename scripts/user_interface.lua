@@ -35,6 +35,7 @@ local hugeVector2 = Vector2.new(math.huge, math.huge);
 local rScriptsApiKey = "de9755e4-6299-4aeb-99f0-63cfae0a4fc6";
 
 local env = getgenv();
+local isFirstTimeExecution = true;
 
 local synRequest = clonefunction(syn.request);
 local base64Decode = clonefunction(syn.crypt.base64.decode);
@@ -294,7 +295,32 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			ClearConsole = "Effacer la console",
 			CopyConsole = "Copier la console"
 		}
-	}
+	},
+	Arabic = {
+		flag = "sa.png",
+		indicator = "عربي",
+		order = 11,
+		phrases = {
+			FreeLogin = "تسجيل الدخول المجاني",
+			AdlessLogin = "تسجيل دخول بلا إعلانات",
+			EnterKey = "أدخل المفتاح",
+			CopyKeyLink = "نسخ رابط المفتاح",
+			["Key..."] = "المفتاح",
+			SubmitCredentials = "إرسال بيانات الاعتماد",
+			["User..."] = "المستخدم",
+			["Password..."] = "كلمة المرور",
+			Editor = "المحرر",
+			Execute = "تنفيذ",
+			Clear = "إخلاء",
+			Clipboard = "الحافظة",
+			CopyScript = "نسخ البرنامج النصي",
+			LoadScript = "حمل البرنامج النصي",
+			["Search..."] = "بحث",
+			Search = "بحث",
+			ClearConsole = "إخلاء وحدة التحكم",
+			CopyConsole = "نسخ وحدة التحكم"
+		}
+	},
 };
 
 local sortedLanguageDatabase = {};
@@ -318,6 +344,7 @@ if isfolder("hydroui") == false then
 	makefolder("hydroui");
 end
 if isfile("hydroui/settings.json") then
+	isFirstTimeExecution = false;
 	local succ, res = pcall(jsonDecode, httpService, readfile("hydroui/settings.json"));
 	if succ then
 		for i, v in next, uiSettings do
@@ -631,8 +658,7 @@ local function loadKeyUI(callback)
 					BackgroundTransparency = 1, 
 					Name = "freemium", 
 					Position = UDim2.new(0.5, 0, 0.5, 0), 
-					Size = UDim2.new(1, 0, 1, 0), 
-					Visible = false
+					Size = UDim2.new(1, 0, 1, 0)
 				}, {
 					create("TextButton", { 
 						LanguageItem = {
@@ -728,7 +754,8 @@ local function loadKeyUI(callback)
 					BackgroundTransparency = 1, 
 					Name = "premium", 
 					Position = UDim2.new(0.5, 0, 0.5, 0), 
-					Size = UDim2.new(1, 0, 1, 0)
+					Size = UDim2.new(1, 0, 1, 0), 
+					Visible = false
 				}, {
 					create("TextButton", { 
 						LanguageItem = {
@@ -844,7 +871,7 @@ local function loadKeyUI(callback)
 			Name = "languages", 
 			Position = UDim2.new(1, 0, 1, 10), 
 			Size = UDim2.new(0, 200, 0, 156), 
-			Visible = false
+			Visible = isFirstTimeExecution
 		}, {
 			create("UIGradient", { 
 				Color = ColorSequence.new({ 
@@ -956,10 +983,10 @@ local function loadKeyUI(callback)
 	local getKey = removeTrace("IjHyfuyuHeg");
 	local checkKey = removeTrace("MhfguURHhtI");
 	local checkPremium = removeTrace("NfHFUhgfbU");
-	
+
 	local content = keyFrame.content;
 	local tabs = content.tabs;
-	
+
 	local function validLogin()
 		table.clear(resizeFunctions);
 		gui.keyFrame:Destroy();
@@ -995,7 +1022,7 @@ local function loadKeyUI(callback)
 				selectTab(v.Name);
 			end);
 		end
-		
+
 		resizeFunctions[#resizeFunctions + 1] = function()
 			local size = math.max(buttons.freemium.title.TextBounds.X, buttons.premium.title.TextBounds.X) + 47;
 			buttons.Size = UDim2.new(0, size, 1, 0);
@@ -1009,23 +1036,18 @@ local function loadKeyUI(callback)
 		local freeFrame = tabs.freemium;
 
 		local getKeyLink = freeFrame.getKeyLink;
-    local enterKey = freeFrame.enterKey;
-    
-    if isfile("hydroui/keysave.txt") then
-        freeFrame.keyInput.Text = readfile("hydroui/keysave.txt");
-    end
+		local enterKey = freeFrame.enterKey;
 
 		getKeyLink.MouseButton1Click:Connect(function()
 			setclipboard(getKey());
 		end);
 
 		enterKey.MouseButton1Click:Connect(function()
-      if checkKey(freeFrame.keyInput.Text) then
-        writefile("hydroui/keysave.txt", freeFrame.keyInput.Text);
+			if checkKey(freeFrame.keyInput.Text) then
 				validLogin();
 			end
 		end);
-		
+
 		resizeFunctions[#resizeFunctions + 1] = function()
 			getKeyLink.Size = UDim2.new(0, getKeyLink.TextBounds.X + 30, 0, 34);
 			enterKey.Size = UDim2.new(0, enterKey.TextBounds.X + 30, 0, 34);
@@ -1052,25 +1074,25 @@ local function loadKeyUI(callback)
 				validLogin();
 			end
 		end);
-		
+
 		resizeFunctions[#resizeFunctions + 1] = function()
 			enterDetails.Size = UDim2.new(0, enterDetails.TextBounds.X + 30, 0, 34);
 			passInput.Size = UDim2.new(1, -(enterDetails.TextBounds.X + 40), 0, 34);
 		end;
 	end
-	
+
 	--[[ Languages ]]--
-	
+
 	do
 		do
-			local isOpen = false;
-			
+			local isOpen = isFirstTimeExecution;
+
 			keyFrame.toggleLanguages.MouseButton1Click:Connect(function()
 				isOpen = not isOpen;
 				keyFrame.languages.Visible = isOpen;
 			end);
 		end
-		
+
 		local template = create("TextButton", { 
 			AutoButtonColor = false,
 			BackgroundColor3 = Color3.fromHex("ffffff"), 
@@ -1119,28 +1141,28 @@ local function loadKeyUI(callback)
 				TextXAlignment = Enum.TextXAlignment.Left
 			})
 		});
-		
+
 		local languages = keyFrame.languages;
-		
+
 		local container = languages.container;
-		
+
 		container.list:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 			container.CanvasSize = UDim2.new(0, 0, 0, container.list.AbsoluteContentSize.Y + 2);			
 		end);
-		
+
 		for i, v in next, sortedLanguageDatabase do
 			local clone = template:Clone();
 			clone.title.Text = v.value.indicator;
 			clone.flagContainer.icon.Image = string.format("rbxasset://hydrogen/hydroui/%s", v.value.flag);
-			
+
 			clone.MouseButton1Click:Connect(function()
 				updateSettings("language", v.key);
 			end);
-			
+
 			clone.Parent = container;
 		end
 	end
-	
+
 	changeLanguage(uiSettings.language);
 end
 
@@ -1157,7 +1179,8 @@ local function loadMainUI()
 		Size = UDim2.new(0, 40, 0, 40), 
 		Text = "", 
 		TextColor3 = Color3.fromHex("000000"), 
-		TextSize = 14
+		TextSize = 14, 
+		ZIndex = 99
 	}, {
 		create("UICorner", { 
 			CornerRadius = UDim.new(0, 4), 
@@ -2275,7 +2298,7 @@ local function loadMainUI()
 					content.Text = text;
 				end
 			end);
-			
+
 			resizeFunctions[#resizeFunctions + 1] = function()
 				local maxBound = 0;
 				for i = 1, #items do
@@ -2422,10 +2445,13 @@ local function loadMainUI()
 				local ext = select(-1, unpack(string.split(fileName, "%2E")));
 				if ext == "webp" then
 					local res = sendRequest("https://projectevo.xyz/api/v1/utils/webptopng", "POST", { ["Content-Type"] = "application/json" }, jsonEncode(httpService, { fileName }));
-					if res then
-						local filePath = string.format("hydroui/search/%s.%s", fileName, "jpg");
-						writefile(filePath, base64Decode(jsonDecode(httpService, res).images[1]));
-						icon.Image = getcustomasset(filePath);
+					if res and icon.Parent.Parent == scroll then
+						local img = jsonDecode(httpService, res).images[1];
+						if img then
+							local filePath = string.format("hydroui/search/%s.%s", fileName, "jpg");
+							writefile(filePath, base64Decode(img));
+							icon.Image = getcustomasset(filePath);
+						end
 					end
 				else
 					local res = sendRequest(path, "GET");
@@ -2472,24 +2498,14 @@ local function loadMainUI()
 					local res = sendRequest(string.format("https://api.rscripts.net/search/basic/%s/views/desc/1/%s", query, rScriptsApiKey), "GET");
 					if res then
 						local scripts = jsonDecode(httpService, res).scripts;
-						local done = 0;
-						for i = 1, #scripts do
-							local v = scripts[i];
-							task.spawn(function()
-								local res2 = sendRequest(string.format("https://api.rscripts.net/script/%d/%s", v.script_id, rScriptsApiKey), "GET");
-								if res2 then
-									v.script = string.format("loadstring(game:HttpGet(\"%s\", true))();", jsonDecode(httpService, res2).download);
+						if scripts then
+							for i = 1, #scripts do
+								local v = scripts[i];
+								if v.download then
+									addScript(v.title, v.image, string.format("loadstring(game:HttpGet(\"%s\", true))();", v.download));
 								end
-								done = done + 1;
-							end);
-						end
-						repeat task.wait() until done == #scripts;
-						for i = 1, #scripts do
-							local v = scripts[i];
-							if v.script then
-								addScript(v.title, v.image, v.script);
 							end
-						end
+						end -- else they got no scripts lol
 					end
 				end
 			};
@@ -2516,7 +2532,7 @@ local function loadMainUI()
 					isSearching = false;
 				end
 			end);
-			
+
 			resizeFunctions[#resizeFunctions + 1] = function()
 				search.Size = UDim2.new(0, search.TextBounds.X + 30, 0, 30);
 				searchInput.Size = UDim2.new(1, -(search.TextBounds.X + 54), 0, 30);
@@ -2553,7 +2569,7 @@ local function loadMainUI()
 					addTransparencyHighlights(v);
 				end
 			end
-			
+
 			local clearConsole = bottom.clearConsole;
 			local copyConsole = bottom.copyConsole;
 
@@ -2564,7 +2580,7 @@ local function loadMainUI()
 			copyConsole.MouseButton1Click:Connect(function()
 				setclipboard(content.Text);
 			end);
-			
+
 			resizeFunctions[#resizeFunctions + 1] = function()
 				clearConsole.Size = UDim2.new(0, clearConsole.title.TextBounds.X + 36, 0, 22);
 				copyConsole.Size = UDim2.new(0, copyConsole.title.TextBounds.X + 36, 0, 22);
@@ -2600,7 +2616,7 @@ local function loadMainUI()
 			end
 
 			game:GetService("LogService").MessageOut:Connect(appendConsole);
-			
+
 			do
 				local lprint, linfo, lwarn, lerror = removeTrace("logprint"), removeTrace("loginfo"), removeTrace("logwarn"), removeTrace("logerror");
 
@@ -2618,7 +2634,7 @@ local function loadMainUI()
 					appendConsole(msg, Enum.MessageType.MessageWarning);
 					lwarn(msg);
 				end);
-				
+
 				env.rconsoleerror = newcclosure(function(msg)
 					appendConsole(msg, Enum.MessageType.MessageError);
 					lerror(msg);
@@ -2643,7 +2659,7 @@ local function loadMainUI()
 				env.rconsoletoggle = newcclosure(function()
 					selectTab(selectedTab == console and "editor" or "console");
 				end);
-				
+
 				env.rconsolehidden = newcclosure(function()
 					return selectedTab ~= console;
 				end);
@@ -2654,7 +2670,7 @@ local function loadMainUI()
 	--[[ Settings ]]--
 
 	do
-
+		
 	end
 
 	changeLanguage(uiSettings.language);
