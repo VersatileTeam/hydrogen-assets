@@ -39,6 +39,13 @@ local rScriptsApiKey = "de9755e4-6299-4aeb-99f0-63cfae0a4fc6";
 local env = getgenv();
 local isFirstTimeExecution = true;
 
+local _setfpscap = clonefunction(setfpscap);
+local _getfpsmax = clonefunction(getfpsmax or function()
+	return 60;
+end);
+
+local _getconnections = clonefunction(getconnections);
+
 local synRequest = clonefunction(syn.request);
 local base64Decode = clonefunction(syn.crypt.base64.decode);
 
@@ -1253,10 +1260,11 @@ local function loadMainUI()
 			AnchorPoint = Vector2.new(0.5, 0.5), 
 			BackgroundColor3 = Color3.fromHex("ffffff"), 
 			BackgroundTransparency = 1, 
-			Image = "rbxasset://hydrogen/hydroui/iconSmall.png", 
+			Image = "rbxasset://hydrogen/hydroui/icon.png", 
 			Name = "icon", 
 			Position = UDim2.new(0.5, 0, 0.5, 0), 
-			Size = UDim2.new(1, -6, 1, -6)
+			Size = UDim2.new(1, -6, 1, -6), 
+			ZIndex = 99
 		})
 	});
 
@@ -3268,7 +3276,7 @@ local function loadMainUI()
 	--[[ Settings ]]--
 
 	do
-		local settings_ = tabs.settings;
+		local _settings = tabs.settings;
 
 		do
 			local template = create("TextButton", { 
@@ -3324,7 +3332,7 @@ local function loadMainUI()
 				})
 			});
 			
-			local languages = settings_.left.languages;
+			local languages = _settings.left.languages;
 			local title = languages.title;
 
 			local drop = languages.drop;
@@ -3415,7 +3423,7 @@ local function loadMainUI()
 				})
 			});
 			
-			local scriptApi = settings_.right.scriptApi;
+			local scriptApi = _settings.right.scriptApi;
 			local title = scriptApi.title;
 
 			local drop = scriptApi.drop;
@@ -3456,10 +3464,10 @@ local function loadMainUI()
 		end
 		
 		do
-			local unlockFps = settings_.left.unlockFps;
+			local unlockFps = _settings.left.unlockFps;
 			
 			local function run(state)
-				setfpscap(state and uiSettings.fps or 60);
+				_setfpscap(state and uiSettings.fps or 60);
 			end
 			
 			unlockFps.MouseButton1Click:Connect(function()
@@ -3474,11 +3482,11 @@ local function loadMainUI()
 		end
 
 		do
-			local vSync = settings_.left.vSync;
+			local vSync = _settings.left.vSync;
 			
 			local function run(state)
 				if state and uiSettings.unlockFps then
-					setfpscap(getfpsmax());
+					_setfpscap(_getfpsmax());
 				end
 			end
 
@@ -3494,7 +3502,7 @@ local function loadMainUI()
 		end
 		
 		do
-			local fpsValue = settings_.left.fpsValue;
+			local fpsValue = _settings.left.fpsValue;
 			
 			local container = fpsValue.container;
 			local indicator = container.indicator;
@@ -3502,7 +3510,7 @@ local function loadMainUI()
 			local function run(value)
 				fpsValue.value.Text = tostring(value);
 				if uiSettings.unlockFps then
-					setfpscap(value);
+					_setfpscap(value);
 				end
 			end
 			
@@ -3534,10 +3542,10 @@ local function loadMainUI()
 		end
 
 		do
-			local antiAfk = settings_.right.antiAfk;
+			local antiAfk = _settings.right.antiAfk;
 
 			local function run(state)
-				local conns = getconnections(localPlayer.Idled);
+				local conns = _getconnections(localPlayer.Idled);
 				for i = 1, #conns do
 					local v = conns[i];
 					if state then
