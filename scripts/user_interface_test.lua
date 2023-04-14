@@ -1253,7 +1253,7 @@ local function loadMainUI()
 			AnchorPoint = Vector2.new(0.5, 0.5), 
 			BackgroundColor3 = Color3.fromHex("ffffff"), 
 			BackgroundTransparency = 1, 
-			Image = "rbxasset://hydrogen/hydroui/icon.png", 
+			Image = "rbxasset://hydrogen/hydroui/iconSmall.png", 
 			Name = "icon", 
 			Position = UDim2.new(0.5, 0, 0.5, 0), 
 			Size = UDim2.new(1, -6, 1, -6)
