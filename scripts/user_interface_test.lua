@@ -111,7 +111,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Arama",
 			ClearConsole = "Konsolu Temizle",
 			CopyConsole = "Konsolu Kopyala",
-			UnlockFPS = "",
+			UnlockFPS = "FPS Kilidini Aç",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -140,7 +140,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Buscar",
 			ClearConsole = "Limpiar Consola",
 			CopyConsole = "Copiar Consola",
-			UnlockFPS = "",
+			UnlockFPS = "Unlocar FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -169,7 +169,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Meklēt",
 			ClearConsole = "Iztīrīt konsoli",
 			CopyConsole = "Kopēt konsoli",
-			UnlockFPS = "",
+			UnlockFPS = "Atbloķējiet FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -198,7 +198,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Zoeken",
 			ClearConsole = "Clear Console",
 			CopyConsole = "Kopieer Console",
-			UnlockFPS = "",
+			UnlockFPS = "Ontgrendelen FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -256,7 +256,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Suchen",
 			ClearConsole = "Konsole löschen",
 			CopyConsole = "Konsole kopieren",
-			UnlockFPS = "",
+			UnlockFPS = "Freischalten FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -285,7 +285,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Cauta",
 			ClearConsole = "Goleste Consola",
 			CopyConsole = "Copiaza din Consola",
-			UnlockFPS = "",
+			UnlockFPS = "Deblocați FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -314,7 +314,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Искать",
 			ClearConsole = "Очистить консоль",
 			CopyConsole = "Скопировать консоль",
-			UnlockFPS = "",
+			UnlockFPS = "Разблокировать FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -343,7 +343,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "Chercher",
 			ClearConsole = "Effacer la console",
 			CopyConsole = "Copier la console",
-			UnlockFPS = "",
+			UnlockFPS = "Déverrouiller les FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -372,7 +372,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			Search = "بحث",
 			ClearConsole = "إخلاء وحدة التحكم",
 			CopyConsole = "نسخ وحدة التحكم",
-			UnlockFPS = "",
+			UnlockFPS = "افتح FPS",
 			VSync = "",
 			FPS = "",
 			AntiAFK = ""
@@ -1098,6 +1098,10 @@ local function loadKeyUI(callback)
 
 		local getKeyLink = freeFrame.getKeyLink;
 		local enterKey = freeFrame.enterKey;
+		
+		if isfile("hydroui/keysave.txt") then
+                    freeFrame.keyInput.Text = readfile("hydroui/keysave.txt");
+                end
 
 		getKeyLink.MouseButton1Click:Connect(function()
 			setclipboard(getKey());
@@ -1105,6 +1109,7 @@ local function loadKeyUI(callback)
 
 		enterKey.MouseButton1Click:Connect(function()
 			if checkKey(freeFrame.keyInput.Text) then
+				writefile("hydroui/keysave.txt", freeFrame.keyInput.Text);
 				validLogin();
 			end
 		end);
