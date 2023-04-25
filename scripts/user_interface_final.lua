@@ -1225,7 +1225,7 @@ local function loadKeyUI(callback)
 
 		enterKey.MouseButton1Click:Connect(function()
 			if checkKey(freeFrame.keyInput.Text) then
-        updateSettings("key", freeFrame.keyInput.Text):
+                                updateSettings("key", freeFrame.keyInput.Text);
 				validLogin();
 			end
 		end);
