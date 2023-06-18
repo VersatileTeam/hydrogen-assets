@@ -134,50 +134,7 @@ Drawing.new = newcclosure(function(v)
         })
     end
 
-    if v == "Image" then
-        local P = {}
-        local J = Instance.new("ImageLabel", Parent)
-
-		    J.BorderSizePixel = 0
-		    J.ScaleType = Enum.ScaleType.Stretch
-	    	J.Transparency = 1
-        J.Visible = false
-
-        return setmetatable({}, {
-            __index = function(self, x)
-                if x == "Remove" or x == "Destroy" then
-                    return function()
-                        J:Destroy()
-                    end
-                end
-                return A[x]
-            end,
-            __newindex = function(self, x, y)
-                A[x] = y
-                if x == "Visible" then
-                    J.Visible = y
-                end
-                if x == "Size" then
-                    J.Size = UDim2.new(0, y.X, 0, y.Y);
-                end
-                if x == "Data" then
-                  J.Image = getcustomasset(y)
-                end
-                if x == "Transparency" then
-                    J.BackgroundTransparency = 1 - y
-                end
-                if x == "Color" then
-                    J.BackgroundColor3 = y
-                end
-                if x == "Position" then
-                    J.Position = UDim2.new(0, y.X, 0, y.Y)
-                end
-                if x == "Radius" then
-                    J.Size = UDim2.new(0, y * 2, 0, y * 2)
-                end
-            end
-        })
-    end
+    -- IMAGE
     
     if v == "Circle" then
         local A = {}
