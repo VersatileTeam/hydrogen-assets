@@ -1,3 +1,8 @@
+local Parent = Instance.new("ScreenGui")
+Parent.Parent = gethui()
+Parent.Name = "drawingfromadollarstore"
+Parent.IgnoreGuiInset = true
+
 local a = math.floor
 local b = {Visible = true, Transparency = true, Color = true, Thickness = true}
 local c = {PointA = true, PointB = true, PointC = true, PointD = true, A = 1, B = 2, C = 3, D = 4}
@@ -33,9 +38,9 @@ end
 
 getgenv().Drawing = {}
 
-local Parent = Instance.new("ScreenGui")
+Parent = Instance.new("ScreenGui")
 Parent.Parent = gethui()
-Parent.Name = "drawingfromadollarstore"
+Parent.Name = "flView"
 Parent.IgnoreGuiInset = true
 
 Drawing.Fonts = {}
