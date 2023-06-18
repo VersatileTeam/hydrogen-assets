@@ -1,6 +1,6 @@
 local Parent = Instance.new("ScreenGui")
 Parent.Parent = gethui()
-Parent.Name = "drawingfromadollarstore"
+Parent.Name = "flView"
 Parent.IgnoreGuiInset = true
 
 local a = math.floor
@@ -72,7 +72,7 @@ Drawing.new = newcclosure(function(v)
                     z.BackgroundColor3 = y
                 end
                 if x == "Transparency" then
-                    z.BackgroundTransparency = 1 - y
+                    z.BackgroundTransparency = math.clamp(1 - y, 0, 1)
                 end
                 if x == "From" then
                     d = draw_line(w.From, w.To, z)
@@ -91,11 +91,6 @@ Drawing.new = newcclosure(function(v)
         local D = Instance.new("TextLabel", Parent)
         D.BorderSizePixel = 0
         D.AnchorPoint = Vector2.new(0.5, 0.5)
-
-		    D.TextColor3 = C.Color
-	    	D.Visible = C.Visible
-        D.BackgroundTransparency = 1
-	    	D.TextTransparency = 1 - C.Transparency
 
         local stroke = Instance.new("UIStroke", D)
         stroke.Thickness = 0.5
@@ -127,7 +122,7 @@ Drawing.new = newcclosure(function(v)
                     D.Position = UDim2.new(0, y.X, 0, y.Y)
                 end
                 if x == "Transparency" then
-                    D.TextTransparency = 1 - y
+                    D.TextTransparency = math.clamp(1 - y, 0, 1)
                 end
                 if x == "Size" then
                     D.TextSize = y - 10
@@ -191,11 +186,7 @@ Drawing.new = newcclosure(function(v)
     if v == "Square" then
         local E = {}
         local F = Instance.new("Frame", Parent)
-        F.AnchorPoint = Vector2.new(0.5, 0.5);
         F.BorderSizePixel = 0
-        F.BackgroundColor3 = E.Color
-		    F.Visible = E.Visible
-		    F.BackgroundTransparency = E.Transparency
 
         -- new UIStroke method of doing square, circle etc. -rexi
         local stroke = Instance.new("UIStroke", F)
@@ -223,7 +214,7 @@ Drawing.new = newcclosure(function(v)
                     stroke.Color = y
                 end
                 if x == "Transparency" then
-                    F.BackgroundTransparency = y
+                    F.BackgroundTransparency = math.clamp(1 - y, 0, 1)
                 end
                 if x == "Position" then
                     F.Position = UDim2.new(0, y.X, 0, y.Y)
