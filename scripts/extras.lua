@@ -1,30 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 getgenv().syn = nil
-
-
-
-
-
-
 
 local Parent = Instance.new("ScreenGui")
 Parent.Parent = gethui()
