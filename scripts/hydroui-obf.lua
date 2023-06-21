@@ -74,8 +74,8 @@ local _getclipboard = clonefunction(getclipboard or _newcclosure(function()
 end));
 local _setclipboard = clonefunction(setclipboard);
 
-local _request = clonefunction(request);
-local _base64decode = clonefunction(crypt.base64.decode);
+local _request = clonefunction(syn.request);
+local _base64decode = clonefunction(syn.crypt.base64.decode);
 
 local urlEncode = clonefunction(httpService.UrlEncode);
 local jsonEncode = clonefunction(httpService.JSONEncode);
@@ -165,10 +165,39 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 			RejoinServer = ""
 		}
 	},
+AzeriTurkish = {
+        flag = "az.png",
+        indicator = "Azəri Türkcəsi",
+        order = 3,
+        phrases = {
+            FreeLogin = "Pulsuz Giriş",
+            AdlessLogin = "Reklamsız Giriş",
+            EnterKey = "Açarı gir",
+            CopyKeyLink = "Açar bağlantısını kopyala",
+            ["Key..."] = "Açar...",
+            SubmitCredentials = "Etibarnamələri təqdim edin",
+            ["User..."] = "İstifadəçi...",
+            ["Password..."] = "Şifrə...",
+            Editor = "Redaktor",
+            Execute = "İcra et",
+            Clear = "Təmizlə",
+            Clipboard = "Pano lövhəsi",
+            CopyScript = "Script'i kopyala",
+            LoadScript = "Script'i yüklə",
+            ["Search..."] = "Axtar...",
+            Search = "Axtar",
+            ClearConsole = "Konsolu təmizlə",
+            CopyConsole = "Konsolu Kopyala",
+            UnlockFPS = "FPS kilidini aç",
+            VSync = "VSync",
+            FPS = "FPS",
+            AntiAFK = "AntiAFK"
+        }
+    },
 	Spanish = {
 		flag = "es.png",
 		indicator = "Español",
-		order = 3,
+		order = 4,
 		phrases = {
 			FreeLogin = "Iniciar sesion gratis",
 			AdlessLogin = "Iniciar sesion sin anuncios",
@@ -204,7 +233,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Latvian = {
 		flag = "lv.png",
 		indicator = "Latviski",
-		order = 4,
+		order = 5,
 		phrases = {
 			FreeLogin = "Bezmaksas pieeja",
 			AdlessLogin = "Bez-reklāmu pieeja",
@@ -240,7 +269,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Dutch = {
 		flag = "nl.png",
 		indicator = "Nederlands",
-		order = 5,
+		order = 6,
 		phrases = {
 			FreeLogin = "Gratis Login",
 			AdlessLogin = "ReclameVrij Login",
@@ -276,7 +305,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Filipino = {
 		flag = "ph.png",
 		indicator = "Filipino",
-		order = 6,
+		order = 7,
 		phrases = {
 			FreeLogin = "Libreng Login",
 			AdlessLogin = "Ad-Free Login",
@@ -312,7 +341,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	German = {
 		flag = "de.png",
 		indicator = "Deustch",
-		order = 7,
+		order = 8,
 		phrases = {
 			FreeLogin = "Kostenloser Login",
 			AdlessLogin = "Adless Login",
@@ -348,7 +377,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Romanian = {
 		flag = "ro.png",
 		indicator = "Română",
-		order = 8,
+		order = 9,
 		phrases = {
 			FreeLogin = "Logare Gratis",
 			AdlessLogin = "Logare fara reclame",
@@ -384,7 +413,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Russian = {
 		flag = "ru.png",
 		indicator = "Русский",
-		order = 9,
+		order = 10,
 		phrases = {
 			FreeLogin = "Бесплатный логин",
 			AdlessLogin = "Логин с рекламой ",
@@ -420,7 +449,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	French = {
 		flag = "fr.png",
 		indicator = "Français",
-		order = 10,
+		order = 11,
 		phrases = {
 			FreeLogin = "Connexion gratuite",
 			AdlessLogin = "Connexion AdLess",
@@ -456,7 +485,7 @@ local resizeFunctions, languageItems, languageDatabase = {}, {}, {
 	Arabic = {
 		flag = "sa.png",
 		indicator = "عربي",
-		order = 11,
+		order = 12,
 		phrases = {
 			FreeLogin = "المجاني الدخول تسجيل",
 			AdlessLogin = "إعلانات بلا دخول تسجيل",
@@ -1218,6 +1247,12 @@ local function loadKeyUI(callback)
 
 		local getKeyLink = freeFrame.getKeyLink;
 		local enterKey = freeFrame.enterKey;
+
+		local previousKey = _settings.left.key;
+
+                if checkKey(previousKey) then
+		    validLogin();
+		end
 
 		getKeyLink.MouseButton1Click:Connect(function()
 			_setclipboard(getKey());
