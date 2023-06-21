@@ -1248,7 +1248,7 @@ local function loadKeyUI(callback)
 		local getKeyLink = freeFrame.getKeyLink;
 		local enterKey = freeFrame.enterKey;
 
-		local previousKey = _settings.left.key;
+		local previousKey = _settings.key;
 
                 if checkKey(previousKey) then
 		    validLogin();
