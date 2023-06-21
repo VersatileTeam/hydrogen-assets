@@ -74,8 +74,8 @@ local _getclipboard = clonefunction(getclipboard or _newcclosure(function()
 end));
 local _setclipboard = clonefunction(setclipboard);
 
-local _request = clonefunction(syn.request);
-local _base64decode = clonefunction(syn.crypt.base64.decode);
+local _request = clonefunction(request);
+local _base64decode = clonefunction(crypt.base64.decode);
 
 local urlEncode = clonefunction(httpService.UrlEncode);
 local jsonEncode = clonefunction(httpService.JSONEncode);
