@@ -67,7 +67,7 @@ getgenv().bit = bit
 getgenv().bit32 = bit
 
 setreadonly(bit, true)
-                                                                        <3 
+
 local VirtualInputManager = Instance.new("VirtualInputManager")
 local GuiService = cloneref(game:GetService("GuiService"))
 
