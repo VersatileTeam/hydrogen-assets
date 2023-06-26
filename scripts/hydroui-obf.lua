@@ -45,7 +45,7 @@ local localPlayer = game:GetService("Players").LocalPlayer;
 
 local hugeVector2 = Vector2.new(math.huge, math.huge);
 
-local rScriptsApiKey = "de9755e4-6299-4aeb-99f0-63cfae0a4fc6";
+local rScriptsApiKey = "0";
 
 local env = getgenv();
 local isFirstTimeExecution = true;
