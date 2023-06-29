@@ -1248,6 +1248,10 @@ local function loadKeyUI(callback)
 		local getKeyLink = freeFrame.getKeyLink;
 		local enterKey = freeFrame.enterKey;
 
+if checkKey(uiSettings.key) then
+    validLogin();
+end
+
 		getKeyLink.MouseButton1Click:Connect(function()
 			_setclipboard(getKey());
 		end);
