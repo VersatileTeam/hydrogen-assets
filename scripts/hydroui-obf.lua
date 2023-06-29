@@ -1263,10 +1263,6 @@ local function loadKeyUI(callback)
 			getKeyLink.Size = UDim2.new(0, getKeyLink.TextBounds.X + 30, 0, 34);
 			enterKey.Size = UDim2.new(0, enterKey.TextBounds.X + 30, 0, 34);
 		end;
-
-		if checkKey(uiSettings.key) then
-                    validLogin();
-                end
 	end
 
 	--[[ Adless ]]--
@@ -1381,6 +1377,10 @@ local function loadKeyUI(callback)
 	end
 
 	changeLanguage(uiSettings.language);
+
+	if checkKey(uiSettings.key) then
+            validLogin();
+        end
 end
 
 local function loadMainUI()
