@@ -4149,5 +4149,3 @@ end;
 --[[ Load ]]--
 
 loadKeyUI(loadMainUI);
-
-runautoexec()
