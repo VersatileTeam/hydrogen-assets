@@ -1248,10 +1248,6 @@ local function loadKeyUI(callback)
 		local getKeyLink = freeFrame.getKeyLink;
 		local enterKey = freeFrame.enterKey;
 
-if checkKey(uiSettings.key) then
-    validLogin();
-end
-
 		getKeyLink.MouseButton1Click:Connect(function()
 			_setclipboard(getKey());
 		end);
@@ -1267,6 +1263,10 @@ end
 			getKeyLink.Size = UDim2.new(0, getKeyLink.TextBounds.X + 30, 0, 34);
 			enterKey.Size = UDim2.new(0, enterKey.TextBounds.X + 30, 0, 34);
 		end;
+
+		if checkKey(uiSettings.key) then
+                    validLogin();
+                end
 	end
 
 	--[[ Adless ]]--
