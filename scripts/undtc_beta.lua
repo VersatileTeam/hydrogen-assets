@@ -45,7 +45,7 @@ local localPlayer = game:GetService("Players").LocalPlayer;
 
 local hugeVector2 = Vector2.new(math.huge, math.huge);
 
-local rScriptsApiKey = "0";
+local rScriptsApiKey = "de9755e4-6299-4aeb-99f0-63cfae0a4fc6";
 
 local env = getgenv();
 local isFirstTimeExecution = true;
@@ -533,7 +533,7 @@ end
 local uiSettings = {
 	key = "",
  userName = "",
-	editorInit = "print(\"Hydrogen-Android >>>\");",
+	editorInit = "print(\"Kieran pls get everything to work ur the only guy I can rely on\rlemme know which errors u find that is on my end\");",
 	searchAPI = "RScripts",
 	language = "English",
 	unlockFps = false,
@@ -649,11 +649,6 @@ local function updateSettings(key, value)
 		changeLanguage(value);
 	end
 	pcall(_writefile, "hydroui/settings.json", jsonEncode(httpService, uiSettings));
-end
-
-local function returnSettings(key)
-
-pcall(_readfile, "hydroui/settings.json", jsonDecode(httpService, uiSettings[key])
 end
 
 --[[ Create UI ]]--
@@ -1253,21 +1248,15 @@ local function loadKeyUI(callback)
 		local getKeyLink = freeFrame.getKeyLink;
     local enterKey = freeFrame.enterKey;
 
-    local settingsKey = returnSettings("key")
-
 		getKeyLink.MouseButton1Click:Connect(function()
 			_setclipboard(getKey());
-    end);
-    
-    if checkKey(_readfile("hydroui/key.txt")) then
-        validLogin();
-    end;
+		end);
 
 		enterKey.MouseButton1Click:Connect(function()
 			if checkKey(freeFrame.keyInput.Text) then
         updateSettings("key", freeFrame.keyInput.Text);
-        _writefile("key.txt", freeFrame.keyInput.Text);
-				validLogin();
+        validLogin();
+        _writefile("hydroui/key.txt", freeFrame.keyInput.Text);
 			end
 		end);
 
@@ -4159,5 +4148,10 @@ local function loadMainUI()
 end;
 
 --[[ Load ]]--
-
 loadKeyUI(loadMainUI);
+
+if _isfile("hydroui/key.txt) then
+    if checkKey(_readfile("hydroui/key.txt")) then
+        validLogin();
+    end
+end
