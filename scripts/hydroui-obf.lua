@@ -625,7 +625,7 @@ end
 
 local function removeTrace(str)
 	local x = env[str];
-	env[str] = nil;
+	-- env[str] = nil;
 	return x;
 end
 
