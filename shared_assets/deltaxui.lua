@@ -5,7 +5,50 @@
     Author: Lxnny_Termed#0795 & Chillz#0348 (DeltaTeam)
 ]]
 
+local httpService = cloneref(game:GetService("HttpService"));
+local requestInternal = clonefunction(httpService.RequestInternal);
+local startRequest = clonefunction(requestInternal(httpService, { Url = "https://google.com" }).Start);
 
+local _coroutinerunning = clonefunction(coroutine.running);
+local _coroutineresume = clonefunction(coroutine.resume);
+local _coroutineyield = clonefunction(coroutine.yield);
+
+local _tablefind = clonefunction(table.find);
+
+local isA = clonefunction(game.IsA);
+
+local userAgent = table.concat({ identifyexecutor() }, " ");
+local userIdentifier = "";
+local userFingerprint = "";
+
+local function performRequest(options)
+    local crt = _coroutinerunning();
+    local req = startRequest(requestInternal(httpService, options), function(x, y)
+        _coroutineresume(crt, y);
+    end);
+    return _coroutineyield();
+end;
+
+getgenv().request = function(options)
+    local headers = {};
+    headers["User-Agent"] = userAgent;
+
+    if options.Headers ~= nil then
+        for i, v in options.Headers do
+            headers[i] = v;
+        end
+    end
+
+    headers["Hydrogen-User-Identifier"] = userIdentifier;
+    headers["delta-fingerprint"] = base64.encode(gethwid());
+
+    return performRequest({
+        Url = options.Url,
+        Method = options.Method,
+        Headers = headers,
+        Body = options.Body
+    });
+end;
 
 local GuiService = game:GetService("GuiService")
 
