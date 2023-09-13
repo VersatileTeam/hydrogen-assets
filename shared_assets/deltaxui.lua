@@ -32,17 +32,15 @@ end;
 getgenv().request = function(options)
     local headers = {};
     headers["User-Agent"] = userAgent;
-    headers["delta-fingerprint"] = base64.encode(gethwid());
+    headers["Delta-Fingerprint"] = base64.encode(gethwid());
+    headers["Delta-User-Identifier"] = userIdentifier;
 
     if options.Headers ~= nil then
         for i, v in options.Headers do
             headers[i] = v;
         end
     end
-
-    headers["Hydrogen-User-Identifier"] = userIdentifier;
-    headers["Delta-Fingerprint"] = base64.encode(gethwid());
-
+	
     return performRequest({
         Url = options.Url,
         Method = options.Method,
