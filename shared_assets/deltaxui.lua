@@ -4478,6 +4478,26 @@ if gethui():FindFirstChild("DeltaGui") then
     gethui():FindFirstChild("DeltaGui"):Destroy()
 end
 
+
+
+local AccountId = 8;
+
+
+function GetLink()
+    return string.format("https://gateway.platoboost.com/a/%i?id=%i", AccountId, game:GetService("Players").LocalPlayer.UserId);
+end
+
+function Verify()
+    if string.find(game:HttpGet("https://gateway.platoboost.com/api/v1/public/delta/hwid?id="..game:GetService("Players").LocalPlayer.UserId), "true") then
+        return true
+    else
+        return false
+    end
+    
+end
+
+
+
 -- Continue
 buttons.Buttons.Button1.MouseButton1Click:Connect(function()
     local key = KeyInput.Text
@@ -4489,27 +4509,17 @@ buttons.Buttons.Button1.MouseButton1Click:Connect(function()
     elseif key == "Test1" then
         GrantAccess()
     end
-    
-    -- Actual key system for regular users
-    local url = "https://redirect-api.work.ink/tokenValid/" .. key
-        local realkey = game:HttpGet(url)
-        --print(realkey)
-        if string.find(realkey, "true") then
-            writefile("dsigfiureikuger.txt", key)
-            --GrantAccess()
-        end
+
+    if Verify() then
+        GrantAccess()
+    end
 end)
 
 
 -- Get Key
 buttons.Buttons.Button2.MouseButton1Click:Connect(function()
-    setclipboard("https://work.ink/2gD/deltaandroidkey")
-    game.StarterGui:SetCore("SendNotification",
-        {
-            Title = "Delta Android";
-            Text = "Copied key link to clipboard!";
-            Duration = 4;
-        })
+    setclipboard(GetLink())
+    buttons.Buttons.Button2.Input.Text = "Copied Link"
     end)
 
 -- Close
@@ -5745,18 +5755,27 @@ if not isfile("dsigfiureikuger.txt") then
     writefile("dsigfiureikuger.txt", "hi")
 end
 
+
+
+
 function checkkey()
 
     local savedkey = readfile("dsigfiureikuger.txt")
 
 	local keyless = game:HttpGet("https://raw.githubusercontent.com/lxnnydev/DeltaAndroid/main/iskeyless")
-	if string.find(keyless, "true") then
+	if string.find(keyless, "false") then
 		GrantAccess()
         return true
 	end
 
+    if Verify() then
+        GrantAccess()
+        return true
+    end
+
     if(savedkey == "WHITELIST") then
         if whitelist() then
+            GrantAccess()
             return true
         end
     end
