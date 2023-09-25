@@ -4506,7 +4506,7 @@ buttons.Buttons.Button1.MouseButton1Click:Connect(function()
     -- whitelist test
     if key == "WHITELIST" then
         whitelist()
-    elseif key == "Test1" then
+    elseif key == "1tseT" then
         GrantAccess()
     end
 
