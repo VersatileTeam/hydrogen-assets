@@ -3,7 +3,7 @@ local name = identifyexecutor()
 local UI = {
     Hydrogen = "https://projectevo.xyz/ui.lua",
     Delta = "https://raw.githubusercontent.com/VersatileTeam/hydrogen-assets/main/shared_assets/deltaxui.lua",
-    Codex = "https://cdn.codex.lol/public/main.txt"
+    -- Codex = "https://cdn.codex.lol/public/main.txt"
 }
 
 local selected_ui = UI[name];
