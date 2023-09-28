@@ -32,7 +32,7 @@ end;
 getgenv().request = function(options)
     local headers = {};
     headers["User-Agent"] = userAgent;
-    headers["Delta-Fingerprint"] = base64.encode(gethwid());
+    headers["Delta-Fingerprint"] = gethwid();
     headers["Delta-User-Identifier"] = userIdentifier;
 
     if options.Headers ~= nil then
