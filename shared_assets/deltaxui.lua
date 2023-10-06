@@ -4506,12 +4506,6 @@ buttons.Buttons.Button1.MouseButton1Click:Connect(function()
     -- whitelist test
     if key == "WHITELIST" then
         whitelist()
-    elseif string.find(key, "BOOST") then
-        local is_booster = game:HttpGet(https://deltafunny.dosware.repl.co/checkKey/..game.Players.LocalPlayer.Name)
-        if string.find(is_booster, "true") then
-            writefile("dsigfiureikuger.txt", "boost")
-            GrantAccess()
-        end
     elseif key == "1tseT" then
         GrantAccess()
     end
@@ -5777,14 +5771,6 @@ function checkkey()
     if Verify() then
         GrantAccess()
         return true
-    end
-
-    if savedkey == "booster" then
-        local is_booster = game:HttpGet(https://deltafunny.dosware.repl.co/checkKey/..game.Players.LocalPlayer.Name)
-        if string.find(is_booster, "true") then
-            writefile("dsigfiureikuger.txt", "boost")
-            GrantAccess()
-        end
     end
 
     if(savedkey == "WHITELIST") then
