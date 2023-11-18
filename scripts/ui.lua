@@ -1,3 +1,5 @@
+getgenv().Niggeritis = true
+
 local name = identifyexecutor()
 
 local UI = {
