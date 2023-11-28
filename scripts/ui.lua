@@ -6,6 +6,7 @@ local UI = {
     Hydrogen = "https://projectevo.xyz/ui.lua",
     Delta = "https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/deltax_ui.lua",
     Codex = "https://cdn.codex.lol/public/main.txt"
+    Evon = "https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/evon_ui.lua"
 }
 
 local selected_ui = UI[name];
