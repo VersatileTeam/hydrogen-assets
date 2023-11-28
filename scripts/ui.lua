@@ -1,4 +1,4 @@
-getgenv().Niggeritis = true
+repeat wait() until game:IsLoaded()
 
 local name = identifyexecutor()
 
