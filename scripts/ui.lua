@@ -1,13 +1,12 @@
-local Old
-Old = hookfunction(Version, function(...)
-    if not checkcaller() then
-        return wait(9e9)
-    end
+-- hop off my dick already LOL
 
-    return Old(...)
-end)
+local renv = clonefunction(getrenv)()
+protectfunction(renv)
+local _wait = clonefunction(renv.wait)
+protectfunction(_wait)
 
-repeat wait() until game:IsLoaded()
+repeat _wait() until game:IsLoaded()
+print(game:IsLoaded())
 
 local name = identifyexecutor()
 
@@ -22,9 +21,9 @@ local selected_ui = UI[name];
 
 -- lenny told me wait(1) was a good idea, i highly disagree but ok -rexi
 if selected_ui then
-    wait(1)
+    _wait(1)
     loadstring(game:HttpGet(selected_ui, true))()
 else
-    wait(1)
+    _wait(1)
     loadstring(game:HttpGet("https://projectevo.xyz/ui.lua", true))()
 end
