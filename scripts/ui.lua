@@ -1,4 +1,6 @@
 -- hop off my dick already LOL
+-- oh and the init script is long gone protectfunction and getgc filter is ported to C++
+-- bluwu you belong to e621
 
 local renv = clonefunction(getrenv)()
 protectfunction(renv)
