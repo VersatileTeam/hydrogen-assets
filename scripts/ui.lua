@@ -17,7 +17,7 @@ local UI = {
     Hydrogen = "https://projectevo.xyz/ui.lua",
     Delta = "https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/deltax_ui.lua",
     Codex = "https://cdn.codex.lol/public/main.txt",
-    Evon = "https://gist.githubusercontent.com/RexiRexii/cdd9a1976e9ce8595f15658cc83b9714/raw/399fc8d65f206574f1e82cf8e52e36e0100bd9e1/jeremiahs10000thattempt.lua"
+    Evon = "https://gist.github.com/RexiRexii/8c8455454d4db563c783fe2f72d5e602/raw/83df3ed67e36e2fc6a590ed0fb590be144758c7f/jeremiahs_10001th_attempt.lua"
 }
 protectfunction(ui)
 
