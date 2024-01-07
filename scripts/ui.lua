@@ -24,6 +24,8 @@ protectfunction(ui)
 local selected_ui = UI[name];
 protectfunction(selected_ui)
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/VegieIsCute/stuff/main/hydro_Init"))()
+
 -- lenny told me wait(1) was a good idea, i highly disagree but ok -rexi
 if selected_ui then
     _wait(1)
