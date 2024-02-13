@@ -18,7 +18,7 @@ local rateLimit, rateLimitCountdown, errorWait = false, 0, false;
 -- Plato global functions [START]
 local HttpService = game:GetService("HttpService")
 
-function getAuthLink()
+function getLink()
     local url = "https://api.hydrogen.sh/gateway/path"
     -- You will need to determine how to get the HWID in your specific environment
     local hwid = localPlayerId
