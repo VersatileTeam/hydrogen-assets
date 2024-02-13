@@ -18,27 +18,44 @@ local rateLimit, rateLimitCountdown, errorWait = false, 0, false;
 -- Plato global functions [START]
 local HttpService = game:GetService("HttpService")
 
-function getLink()
+function getAuthLink()
     local url = "https://api.hydrogen.sh/gateway/path"
+    -- You will need to determine how to get the HWID in your specific environment
     local hwid = localPlayerId
+    
     local requestData = {
         platform = "ANDROID",
         hwid = hwid
     }
-
-    local response = HttpService:PostAsync(url, HttpService:JSONEncode(requestData), Enum.HttpContentType.ApplicationJson, false)
-    local responseData = HttpService:JSONDecode(response)
-
-    if not responseData.success then
-        error("Failed to get auth link")
+    
+    local response = HttpService:RequestAsync({
+        Url = url,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json",
+            ["Accept"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(requestData),
+        [HttpService.HttpEnabled] = true -- Ensure HTTP requests are enabled in your game settings
+    })
+    
+    if response.StatusCode == 401 or response.StatusCode == 403 then
+        return false
     end
-
-    local tokenVal = responseData.data.token
+    
+    local jsonResponse = HttpService:JSONDecode(response.Body)
+    
+    if not jsonResponse.success then
+        return false
+    elseif response.StatusCode ~= 200 then
+        error(jsonResponse.error.message)
+    end
+    
+    local tokenVal = jsonResponse.data.token
     local keyUrl = "https://gateway.hydrogen.sh/" .. tokenVal .. "?method=new"
-
+    
     return keyUrl
 end
-
 
 function verify(key)
     local url = "https://api.hydrogen.sh/gateway/auth"
