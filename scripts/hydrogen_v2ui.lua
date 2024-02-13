@@ -1,3 +1,5 @@
+print("Hydrogen - Loaded")
+
 local cache = {
     modules = {
         home = {},
